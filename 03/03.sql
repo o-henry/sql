@@ -109,12 +109,57 @@ SELECT Customer.name, Book.bookname
 FROM Customer, Book, Orders
 WHERE Customer.custid=Orders.custid AND Book.price=20000 AND Book.bookid=Orders.bookid;
 
+-- 부속질의
+
 SELECT bookname
 FROM Book
-WHERE price=(SELECT MAX(price) FROM Book);
+WHERE price=(SELECT MAX(price)
+             FROM Book);
 
+-- 도서를 구매한 적이 있는 고객의 이름을 검색하시오.
+-- SELECT custid
+-- FROM Orders
+
+SELECT name
+FROM Customer
+WHERE custid IN (SELECT custid 
+                 FROM Orders);
+
+-- 대한미디어에서 출판한 도서를 구매한 고객의 이름을 보이시오.
+SELECT name
+FROM Customer
+WHERE custid IN(SELECT custid
+              FROM Orders
+              WHERE bookid IN(SELECT bookid
+                              FROM Book
+                              WHERE publisher='대한미디어'));
+
+-- SELECT name
+-- FROM Customer
+-- WHERE custid
+
+-- SELECT bookid
+-- FROM Book
+-- WHERE publisher='대한미디어'
+
+-- SELECT name
+-- FROM Customer
+-- WHERE custid
+
+
+
+
+SELECT b1.bookname
+FROM Book b1
+WHERE b1.price > (SELECT avg(b2.price)
+                  FROM Book b2    
+                  WHERE b2.publisher=b1.publisher);
+
+SELECT name
+FROM Customer
+WHERE address LIKE '대한민국%'
+UNION
 SELECT name
 FROM Customer
 WHERE custid IN (SELECT custid FROM Orders);
 
--- 대한미디어에서 출판한 도서를 구매하고 고객의 이름을 보이시오.
