@@ -134,6 +134,7 @@ WHERE custid IN(SELECT custid
                               FROM Book
                               WHERE publisher='대한미디어'));
 
+-- 하위 요소를 먼저 고려하기
 -- SELECT name
 -- FROM Customer
 -- WHERE custid
@@ -154,6 +155,7 @@ FROM Book b1
 WHERE b1.price > (SELECT avg(b2.price)
                   FROM Book b2    
                   WHERE b2.publisher=b1.publisher);
+
 
 SELECT name
 FROM Customer
