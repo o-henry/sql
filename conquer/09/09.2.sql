@@ -1,0 +1,1 @@
+SELECT name FROM tStaff WHERE salary >= (SELECT AVG(salary) FROM tStaff);
