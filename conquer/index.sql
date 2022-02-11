@@ -1,3 +1,5 @@
+-- answer p644
+
 CREATE TABLE tCity 
 (
     name CHAR(10) PRIMARY KEY, -- 고정 길이 문자열
@@ -44,6 +46,7 @@ INSERT INTO tProject VALUES (3, '김상형', '매출분석건', 200);
 INSERT INTO tProject VALUES (4, '문종민', '경영 혁신안 작성', 120);
 INSERT INTO tProject VALUES (5, '문종민', '대리점 계획', 85);
 INSERT INTO tProject VALUES (6, '권성직', '노조 협상건', 24);
+
 CREATE TABLE tMember
 (
     member VARCHAR(20) PRIMARY KEY, 	-- 아이디
@@ -94,3 +97,22 @@ INSERT INTO tItem (item,company,num,price,category) VALUES ('사과', '문경농
 INSERT INTO tItem (item,company,num,price,category) VALUES ('대추', '보은농원', 19, 15000, '식품');
 INSERT INTO tItem (item,company,num,price,category) VALUES ('전자담배', 'TNG', 4, 70000, '성인');
 INSERT INTO tItem (item,company,num,price,category) VALUES ('마우스', '논리텍', 3, 90000, '가전');
+
+CREATE TABLE tOrder
+(
+  orderID INT IDENTITY PRIMARY KEY,		-- 주문 번호
+  member VARCHAR(20) NOT NULL,   		-- 주문자
+  item VARCHAR(20) NOT NULL,			-- 상품
+  orderDate DATE DEFAULT GETDATE() NOT NULL,	-- 주문 날자
+  num INT NOT NULL,				-- 개수
+  status INT DEFAULT 1 NOT NULL,			-- 1:주문, 2:배송중, 3:배송완료, 4:반품
+  remark VARCHAR(1000) NULL			-- 메모 사항
+);
+
+-- 주문 데이터
+INSERT INTO tOrder (member,item,orderDate,num,status) VALUES ('춘향','청바지','2019-12-3',3,2);
+INSERT INTO tOrder (member,item,orderDate,num,status) VALUES ('향단','대추','2019-12-4',10,1);
+INSERT INTO tOrder (member,item,orderDate,num,status) VALUES ('방자','전자담배','2019-12-2',4,1);
+INSERT INTO tOrder (member,item,orderDate,num,status) VALUES ('향단','사과','2019-12-5',5,2);
+INSERT INTO tOrder (member,item,orderDate,num,status) VALUES ('흥부','노트북','2019-12-5',2,1);
+INSERT INTO tOrder (member,item,orderDate,num,status) VALUES ('방자','핸드폰','2019-11-1',1,3);
